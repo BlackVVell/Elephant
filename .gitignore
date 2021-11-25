@@ -2,3 +2,6 @@
 /.idea/
 /elephant.iml
 config.properties
+/config.conf
+/config.config
+/chromedriver.exe
