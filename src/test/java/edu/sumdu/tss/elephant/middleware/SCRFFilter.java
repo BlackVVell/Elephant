@@ -1,12 +1,5 @@
 package edu.sumdu.tss.elephant.middleware;
 
-/**
- *
- *  Example using Mocking context
- *
- * @autor https://github.com/ThePersonThat
- *
- */
 
 import edu.sumdu.tss.elephant.helper.exception.CheckTokenException;
 import io.javalin.http.Context;
@@ -52,4 +45,60 @@ class CSRFFilterTest {
             verify(context).sessionAttribute(eq("csrf"), eq(mockCSRFToken));
         }
     }
+
+    @Test
+    @DisplayName("Should generate the null token")
+    void testCheckTokenNull() {
+        String mockCSRFToken = null;
+        Context context = spy(ContextUtil.init(request, response));
+        when(request.getMethod()).thenReturn("POST");
+
+        doReturn(null).when(context).header("X-CSRF-TOKEN");
+        doReturn(null).when(context).formParam("_csrf");
+
+        doReturn(null).when(context).sessionAttribute("SessionID");
+
+        try (MockedStatic<CSRFTokenService> mockedService = mockStatic(CSRFTokenService.class)) {
+            mockedService.when(() -> CSRFTokenService.generateToken(anyString())).thenReturn(mockCSRFToken);
+
+            CSRFFilter.generate(context);
+
+        }
+
+        try (MockedStatic<CSRFTokenService> mockedService = mockStatic(CSRFTokenService.class)) {
+            mockedService.when(() -> CSRFTokenService.validateToken(anyString(), anyString())).thenReturn(true);
+
+            assertThrows(CheckTokenException.class, () -> {
+                CSRFFilter.check(context);
+            });
+        }
+    }
+
+    @Test
+    @DisplayName("Should check the token")
+    void testCheck() {
+        String mockCSRFToken = "mockCSRFToken";
+        Context context = spy(ContextUtil.init(request, response));
+        when(request.getMethod()).thenReturn("POST");
+
+        doReturn(mockCSRFToken).when(context).header("X-CSRF-TOKEN");
+        doReturn(mockCSRFToken).when(context).formParam("_csrf");
+
+        doReturn(null).when(context).sessionAttribute("SessionID");
+
+        try (MockedStatic<CSRFTokenService> mockedService = mockStatic(CSRFTokenService.class)) {
+            mockedService.when(() -> CSRFTokenService.generateToken(anyString())).thenReturn(mockCSRFToken);
+
+            CSRFFilter.generate(context);
+
+        }
+
+        try (MockedStatic<CSRFTokenService> mockedService = mockStatic(CSRFTokenService.class)) {
+            mockedService.when(() -> CSRFTokenService.validateToken(anyString(), anyString())).thenReturn(true);
+
+            CSRFFilter.check(context);
+
+        }
+    }
+
 }
