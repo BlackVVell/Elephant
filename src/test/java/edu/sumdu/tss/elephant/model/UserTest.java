@@ -70,39 +70,66 @@ class UserTest {
         assertEquals(user.crypt(source), sb.toString());
     }
 
-//    @Test
-//    //не работает!!!
-//    void failCrypt() throws NoSuchAlgorithmException {
-//        MessageDigest md = spy(MessageDigest.getInstance(anyString()));
-//        when(MessageDigest.getInstance(anyString())).thenReturn(null);
-//
-//        System.out.println(md.getInstance("sadad"));
-
-//        doReturn(null).when(md).getInstance("SHA-384");
-//        User user = new User();
-//        String login = "login";
-//        user.setLogin(login);
-//        String source = "test string";
-//        try {
-//            md = MessageDigest.getInstance("SHA-384");
-//        } catch (NoSuchAlgorithmException e) {
-//            throw new HttpError500("Fail crypt user password", e);
-//        }
-//        md.update(login.getBytes());
-//        byte[] bytes = md.digest();
-//        StringBuilder sb = new StringBuilder();
-//        for (int i = 0; i < bytes.length; i++) {
-//            sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-//        }
-//        assertEquals(user.crypt(source), sb.toString());
-//    }
-
     @Test
-    void resetToken(){
+    void resetToken() {
         User user1 = new User();
         user1.resetToken();
         User user2 = new User();
         user2.resetToken();
         assertNotEquals(user1.getToken(), user2.getToken());
+    }
+
+    @Test
+    void getId() {
+        User user = new User();
+        assertNull(user.getId());
+    }
+
+    @Test
+    void getLogin() {
+        User user = new User();
+        assertNull(user.getLogin());
+    }
+
+    @Test
+    void getUsername() {
+        User user = new User();
+        assertNull(user.getUsername());
+    }
+
+    @Test
+    void getDbPassword() {
+        User user = new User();
+        assertNull(user.getDbPassword());
+    }
+
+    @Test
+    void getRole() {
+        User user = new User();
+        assertNull(user.getRole());
+    }
+
+    @Test
+    void getPrivateKey() {
+        User user = new User();
+        assertNull(user.getPrivateKey());
+    }
+
+    @Test
+    void getPublicKey() {
+        User user = new User();
+        assertNull(user.getPublicKey());
+    }
+
+    @Test
+    void getToken() {
+        User user = new User();
+        assertNull(user.getToken());
+    }
+
+    @Test
+    void getLanguage() {
+        User user = new User();
+        assertNull(user.getLanguage());
     }
 }
