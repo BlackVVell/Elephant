@@ -1,7 +1,10 @@
-package edu.sumdu.tss.elephant.model;
+package edu.sumdu.tss.elephant.integration.model;
 
 import edu.sumdu.tss.elephant.helper.DBPool;
 import edu.sumdu.tss.elephant.helper.utils.StringUtils;
+import edu.sumdu.tss.elephant.model.DbUserService;
+import edu.sumdu.tss.elephant.model.User;
+import edu.sumdu.tss.elephant.model.UserService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

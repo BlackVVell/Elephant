@@ -1,5 +1,6 @@
-package edu.sumdu.tss.elephant.controller;
+package edu.sumdu.tss.elephant.integration.controller;
 
+import edu.sumdu.tss.elephant.controller.SqlController;
 import edu.sumdu.tss.elephant.helper.DBPool;
 import edu.sumdu.tss.elephant.helper.Keys;
 import edu.sumdu.tss.elephant.helper.utils.StringUtils;

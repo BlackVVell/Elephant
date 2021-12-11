@@ -1,6 +1,7 @@
-package edu.sumdu.tss.elephant.model;
+package edu.sumdu.tss.elephant.integration.model;
 
 import edu.sumdu.tss.elephant.helper.exception.HttpError500;
+import edu.sumdu.tss.elephant.model.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

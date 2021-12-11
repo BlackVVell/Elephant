@@ -1,6 +1,7 @@
-package edu.sumdu.tss.elephant.model;
+package edu.sumdu.tss.elephant.integration.model;
 
 import edu.sumdu.tss.elephant.helper.utils.StringUtils;
+import edu.sumdu.tss.elephant.model.BackupService;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
