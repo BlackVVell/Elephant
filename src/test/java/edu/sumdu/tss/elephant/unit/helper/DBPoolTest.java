@@ -1,5 +1,7 @@
-package edu.sumdu.tss.elephant.helper;
+package edu.sumdu.tss.elephant.unit.helper;
 
+import edu.sumdu.tss.elephant.helper.DBPool;
+import edu.sumdu.tss.elephant.helper.Keys;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

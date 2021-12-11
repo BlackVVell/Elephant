@@ -1,5 +1,5 @@
 
-package edu.sumdu.tss.elephant.helper.sql;
+package edu.sumdu.tss.elephant.unit.helper.sql;
 
 import java.io.StringReader;
 import java.util.Random;

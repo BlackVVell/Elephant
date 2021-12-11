@@ -1,6 +1,8 @@
-package edu.sumdu.tss.elephant.helper;
+package edu.sumdu.tss.elephant.unit.helper;
 
+import edu.sumdu.tss.elephant.helper.Hmac;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,7 +35,7 @@ class HmacTest {
         for (byte b : mac.doFinal(data.getBytes())) {
             formatter.format("%02x", b);
         }
-        assertEquals(formatter.toString(), Hmac.calculate(data,key));
+        Assertions.assertEquals(formatter.toString(), Hmac.calculate(data,key));
 
     }
 }

@@ -1,8 +1,9 @@
-package edu.sumdu.tss.elephant.helper.utils;
+package edu.sumdu.tss.elephant.unit.helper.utils;
 
 import edu.sumdu.tss.elephant.controller.LoginController;
 import edu.sumdu.tss.elephant.helper.Keys;
 import edu.sumdu.tss.elephant.helper.exception.BackupException;
+import edu.sumdu.tss.elephant.helper.utils.ExceptionUtils;
 import io.javalin.core.validation.ValidationError;
 import io.javalin.core.validation.ValidationException;
 import io.javalin.http.Context;

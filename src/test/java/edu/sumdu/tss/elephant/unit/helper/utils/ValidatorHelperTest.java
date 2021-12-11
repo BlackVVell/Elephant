@@ -1,5 +1,7 @@
-package edu.sumdu.tss.elephant.helper.utils;
+package edu.sumdu.tss.elephant.unit.helper.utils;
 
+import edu.sumdu.tss.elephant.helper.utils.StringUtils;
+import edu.sumdu.tss.elephant.helper.utils.ValidatorHelper;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

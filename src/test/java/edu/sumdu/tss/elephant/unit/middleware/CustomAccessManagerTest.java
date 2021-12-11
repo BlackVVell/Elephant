@@ -1,9 +1,10 @@
-package edu.sumdu.tss.elephant.middleware;
+package edu.sumdu.tss.elephant.unit.middleware;
 
 import edu.sumdu.tss.elephant.controller.AbstractController;
 import edu.sumdu.tss.elephant.controller.HomeController;
 import edu.sumdu.tss.elephant.helper.UserRole;
 
+import edu.sumdu.tss.elephant.middleware.CustomAccessManager;
 import edu.sumdu.tss.elephant.model.User;
 import io.javalin.core.util.JavalinLogger;
 import io.javalin.http.Context;

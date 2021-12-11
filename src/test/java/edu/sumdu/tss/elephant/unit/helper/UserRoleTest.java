@@ -1,7 +1,9 @@
-package edu.sumdu.tss.elephant.helper;
+package edu.sumdu.tss.elephant.unit.helper;
 
+import edu.sumdu.tss.elephant.helper.UserRole;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +22,7 @@ class UserRoleTest {
 
     @Test
     void byValue() {
-        assertEquals(UserRole.byValue(2).getValue(), 2);
+        Assertions.assertEquals(UserRole.byValue(2).getValue(), 2);
     }
 
     @Test

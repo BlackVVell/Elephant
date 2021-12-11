@@ -1,6 +1,7 @@
-package edu.sumdu.tss.elephant.helper.utils;
+package edu.sumdu.tss.elephant.unit.helper.utils;
 
 import edu.sumdu.tss.elephant.helper.Keys;
+import edu.sumdu.tss.elephant.helper.utils.ResponseUtils;
 import io.javalin.http.Context;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

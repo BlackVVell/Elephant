@@ -1,5 +1,7 @@
-package edu.sumdu.tss.elephant.helper.enums;
+package edu.sumdu.tss.elephant.unit.helper.enums;
 
+import edu.sumdu.tss.elephant.helper.enums.Lang;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,7 +11,7 @@ class LangTest {
     @Test
     void byValueTest(){
         String lang = "EN";
-        assertEquals(Lang.valueOf("EN"), Lang.byValue(lang));
+        Assertions.assertEquals(Lang.valueOf("EN"), Lang.byValue(lang));
     }
 
     @Test

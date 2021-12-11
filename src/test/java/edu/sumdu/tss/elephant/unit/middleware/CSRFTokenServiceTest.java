@@ -1,7 +1,8 @@
-package edu.sumdu.tss.elephant.middleware;
+package edu.sumdu.tss.elephant.unit.middleware;
 
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
+import edu.sumdu.tss.elephant.middleware.CSRFTokenService;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;

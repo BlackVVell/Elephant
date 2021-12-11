@@ -1,5 +1,6 @@
-package edu.sumdu.tss.elephant.helper.exception;
+package edu.sumdu.tss.elephant.unit.helper.exception;
 
+import edu.sumdu.tss.elephant.helper.exception.HttpException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

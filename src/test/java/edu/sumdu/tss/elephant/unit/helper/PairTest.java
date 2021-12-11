@@ -1,4 +1,4 @@
-package edu.sumdu.tss.elephant.helper;
+package edu.sumdu.tss.elephant.unit.helper;
 
 import edu.sumdu.tss.elephant.helper.Pair;
 import org.junit.jupiter.api.AfterEach;
