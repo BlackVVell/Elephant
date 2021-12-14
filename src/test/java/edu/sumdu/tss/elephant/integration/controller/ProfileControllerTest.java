@@ -31,7 +31,7 @@ class ProfileControllerTest {
     private static String FROM_EMAIL;
     private static GreenMail greenMail;
     private final static String EMAIL = "qewr@gmail.com";
-    private final static String PASSWORD = "Qgjhgfgvkgvk123@123";
+    private final static String PASSWORD = "Qtrtr23@123";
 
     @BeforeAll
     static void setUp() {
@@ -119,7 +119,7 @@ class ProfileControllerTest {
 
     }
 
-   /* @Test
+    @Test
     void resetWebPassword() {
 
         String oldPass;
@@ -132,7 +132,7 @@ class ProfileControllerTest {
             oldPass = users.get(0).getPassword();
         }
 
-        Unirest.post(Keys.get("APP.URL") +"/reset-password")
+        Unirest.post(Keys.get("APP.URL") + "/profile"+"/reset-password")
                 .field("web-password", PASSWORD)
                 .asString();
 
@@ -145,7 +145,7 @@ class ProfileControllerTest {
         }
 
 
-    }*/
+    }
 
     @Test
     void resetApiPassword() {
@@ -175,11 +175,11 @@ class ProfileControllerTest {
 
     }
 
-    /*@Test
+    @Test
     void upgradeUser() {
 
         Unirest.post(Keys.get("APP.URL") + "/profile"+"/upgrade")
-                .field("role", 2)
+                .field("role", UserRole.PROMOTED_USER)
                 .asString();
 
 
@@ -188,10 +188,10 @@ class ProfileControllerTest {
                     .addParameter("login" , EMAIL)
                     .executeAndFetch(User.class);
 
-            assertEquals(2,users.get(0).getRole());
+            assertEquals(UserRole.PROMOTED_USER.getValue(),users.get(0).getRole());
         }
 
-    }*/
+    }
 
     @Test
     void removeSelf() {
