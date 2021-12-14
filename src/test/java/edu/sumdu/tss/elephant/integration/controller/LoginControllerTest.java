@@ -47,17 +47,27 @@ class LoginControllerTest {
         greenMail = new GreenMail(new ServerSetup(3025, "127.0.0.1", ServerSetup.PROTOCOL_SMTPS));
         greenMail.setUser(FROM_EMAIL, Keys.get("EMAIL.USER"), Keys.get("EMAIL.PASSWORD"));
         greenMail.start();
-
-        Unirest.post(Keys.get("APP.URL") + "/registration")
-                .field("login", EMAIL)
-                .field("password", "Qwerty123@").asEmpty();
-
     }
 
     @AfterAll
     static void tearDown() {
+        greenMail.stop();
         server.stop();
-        server.stop();
+    }
+
+    @BeforeEach
+    void logout(){
+        Unirest.post(Keys.get("APP.URL") + "/registration")
+                .field("login", EMAIL)
+                .field("password", "Qwerty123@").asEmpty();
+
+        Unirest.get(Keys.get("APP.URL") + "/logout").asEmpty();
+    }
+
+    @AfterEach
+    void clear(){
+        Unirest.get(Keys.get("APP.URL") + "/logout").asEmpty();
+
         try (Connection connection = sql2o.open()) {
             connection.createQuery("DELETE FROM BACKUPS").executeUpdate();
             connection.createQuery("DELETE FROM DATABASES").executeUpdate();
@@ -65,11 +75,6 @@ class LoginControllerTest {
             connection.createQuery("DELETE FROM SCRIPTS").executeUpdate();
             connection.createQuery("DELETE FROM USERS").executeUpdate();
         }
-    }
-
-    @BeforeEach
-    void logout(){
-        Unirest.get(Keys.get("APP.URL") + "/logout").asEmpty();
     }
 
     @Test
@@ -143,7 +148,7 @@ class LoginControllerTest {
         HttpResponse<String> reset = Unirest.post(Keys.get("APP.URL") + "/login/reset-password")
                 .field("email", EMAIL).asString();
 
-
+        System.out.println(reset.getBody());
         assertEquals("/login",reset.getHeaders().getFirst("Location"));
         assertEquals(302,reset.getStatus());
 
@@ -280,7 +285,6 @@ class LoginControllerTest {
                 .field("token", token + "qwerty")
                 .field("password", "Qwerty123@Q").asString();
 
-
         assertEquals(302, changePassword.getStatus());
         assertEquals("/login",changePassword.getHeaders().getFirst("Location"));
         assertTrue(changePassword.getBody().contains("Unknown or invalid token"));
@@ -323,7 +327,6 @@ class LoginControllerTest {
         HttpResponse<String> changePassword = Unirest.post(Keys.get("APP.URL") + "/login/reset")
                 .field("token", token)
                 .field("password", "Qwerty12345").asString();
-
 
         System.out.println(changePassword.getBody());
         assertNotNull(changePassword.getBody());
