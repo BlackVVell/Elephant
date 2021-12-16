@@ -31,7 +31,7 @@ class ProfileControllerTest {
     private static String FROM_EMAIL;
     private static GreenMail greenMail;
     private final static String EMAIL = "qewr@gmail.com";
-    private final static String PASSWORD = "Qtrtr23@123";
+    private final static String PASSWORD = "Qtqwr23@123";
 
     @BeforeAll
     static void setUp() {
@@ -195,7 +195,7 @@ class ProfileControllerTest {
 
     @Test
     void removeSelf() {
+        Unirest.post(Keys.get("APP.URL") + "/profile"+"/remove-self")
+                .asString();
     }
-
-
 }

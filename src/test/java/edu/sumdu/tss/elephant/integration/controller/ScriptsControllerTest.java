@@ -1,4 +1,4 @@
-package edu.sumdu.tss.elephant.controller;
+package edu.sumdu.tss.elephant.integration.controller;
 
 import edu.sumdu.tss.elephant.Server;
 import edu.sumdu.tss.elephant.helper.Keys;

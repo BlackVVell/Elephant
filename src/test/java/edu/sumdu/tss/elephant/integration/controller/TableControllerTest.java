@@ -1,4 +1,4 @@
-package edu.sumdu.tss.elephant.controller;
+package edu.sumdu.tss.elephant.integration.controller;
 
 import edu.sumdu.tss.elephant.Server;
 import edu.sumdu.tss.elephant.helper.Keys;
@@ -12,7 +12,6 @@ import org.sql2o.Sql2o;
 import java.io.File;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TableControllerTest {
