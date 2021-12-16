@@ -29,6 +29,9 @@ class ScriptsControllerTest {
 
     @AfterAll
     static void stopAll() {
+
+        Unirest.get(Keys.get("APP.URL") + "/logout")
+                .asEmpty();
         server.stop();
         try (Connection connection = sql2o.open()) {
             connection.createQuery("DELETE FROM BACKUPS").executeUpdate();
