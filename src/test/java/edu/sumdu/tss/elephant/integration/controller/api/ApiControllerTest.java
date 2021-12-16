@@ -37,11 +37,11 @@ class ApiControllerTest {
     static void setUp() {
         server = new Server();
         Keys.loadParams(new File("config.conf"));
+        FROM_EMAIL = Keys.get("EMAIL.FROM");
         server.start(Integer.parseInt(Keys.get("APP.PORT")));
         sql2o = new Sql2o("jdbc:postgresql://" + Keys.get("DB.URL") + ":" + Keys.get("DB.PORT") + "/" + Keys.get("DB.NAME"), Keys.get("DB.USERNAME"), Keys.get("DB.PASSWORD"));
 
-        FROM_EMAIL = Keys.get("EMAIL.FROM");
-        greenMail = new GreenMail(new ServerSetup(456, "127.0.0.1", ServerSetup.PROTOCOL_SMTP));
+        greenMail = new GreenMail(new ServerSetup(456,"127.0.0.1",ServerSetup.PROTOCOL_SMTP));
         greenMail.setUser(FROM_EMAIL, Keys.get("EMAIL.USER"), Keys.get("EMAIL.PASSWORD"));
         greenMail.start();
 

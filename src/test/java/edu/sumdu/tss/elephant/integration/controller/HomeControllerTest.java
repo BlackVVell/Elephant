@@ -37,7 +37,7 @@ class HomeControllerTest {
 
         Security.setProperty("ssl.SocketFactory.provider",
                 DummySSLSocketFactory.class.getName());
-        greenMail = new GreenMail(new ServerSetup(3025, "127.0.0.1", ServerSetup.PROTOCOL_SMTPS));
+        greenMail = new GreenMail(new ServerSetup(456, "127.0.0.1", ServerSetup.PROTOCOL_SMTP));
         greenMail.setUser(FROM_EMAIL, Keys.get("EMAIL.USER"), Keys.get("EMAIL.PASSWORD"));
         greenMail.start();
 
@@ -49,6 +49,8 @@ class HomeControllerTest {
 
     @AfterAll
     static void tearDown() {
+        Unirest.get(Keys.get("APP.URL") + "/logout")
+                .asEmpty();
         greenMail.stop();
         server.stop();
         try (Connection connection = sql2o.open()) {

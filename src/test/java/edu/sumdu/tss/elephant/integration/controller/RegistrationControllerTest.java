@@ -62,8 +62,16 @@ class RegistrationControllerTest {
 
     @AfterAll
     static void tearDown() {
+        Unirest.get(Keys.get("APP.URL") + "/logout").asEmpty();
         greenMail.stop();
         server.stop();
+        try (Connection connection = sql2o.open()) {
+            connection.createQuery("DELETE FROM BACKUPS").executeUpdate();
+            connection.createQuery("DELETE FROM DATABASES").executeUpdate();
+            connection.createQuery("DELETE FROM LOGGER").executeUpdate();
+            connection.createQuery("DELETE FROM SCRIPTS").executeUpdate();
+            connection.createQuery("DELETE FROM USERS").executeUpdate();
+        }
     }
 
     @Test
