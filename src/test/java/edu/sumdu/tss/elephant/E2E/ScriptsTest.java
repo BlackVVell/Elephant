@@ -38,13 +38,13 @@ class ScriptsTest {
     @AfterEach
     public void tearDown() {
         driver.quit();
-        try (Connection connection = sql2o.open()) {
-            connection.createQuery("DELETE FROM BACKUPS").executeUpdate();
-            connection.createQuery("DELETE FROM DATABASES").executeUpdate();
-            connection.createQuery("DELETE FROM LOGGER").executeUpdate();
-            connection.createQuery("DELETE FROM SCRIPTS").executeUpdate();
-            connection.createQuery("DELETE FROM USERS").executeUpdate();
-        }
+//        try (Connection connection = sql2o.open()) {
+//            connection.createQuery("DELETE FROM BACKUPS").executeUpdate();
+//            connection.createQuery("DELETE FROM DATABASES").executeUpdate();
+//            connection.createQuery("DELETE FROM LOGGER").executeUpdate();
+//            connection.createQuery("DELETE FROM SCRIPTS").executeUpdate();
+//            connection.createQuery("DELETE FROM USERS").executeUpdate();
+//        }
     }
 
 
@@ -132,6 +132,43 @@ class ScriptsTest {
 
     @Test
     public void incorrectScriptLaunch() {
+        StringBuilder sb = new StringBuilder(len);
+        for (int i = 0; i < len; i++)
+            sb.append(AB.charAt(rnd.nextInt(AB.length())));
+        String mail = String.format("scaliariy1+%s@gmail.com", sb);
+        String password = "D5h6Cm8pmbDpyR2@";
+        System.out.println(mail);
+        System.out.println(password);
+        driver.get("http://localhost:7000/registration");
+        driver.manage().window().setSize(new Dimension(974, 1040));
+        driver.findElement(By.linkText("Sign Up")).click();
+        driver.findElement(By.id("email")).click();
+        driver.findElement(By.id("email")).sendKeys(mail);
+        driver.findElement(By.id("password")).click();
+        driver.findElement(By.id("password")).sendKeys(password);
+        driver.findElement(By.id("conformation")).click();
+        driver.findElement(By.id("conformation")).sendKeys(password);
+        driver.findElement(By.cssSelector(".w-100")).click();
+
+        driver.findElement(By.linkText("Profile")).click();
+        driver.findElement(By.cssSelector(".col:nth-child(1) .w-100")).sendKeys(org.openqa.selenium.Keys.RETURN);
+        driver.findElement(By.linkText("Dashboard")).click();
+        driver.findElement(By.cssSelector(".w-100")).click();
+        driver.get("http://localhost:7000/home");
+
+        driver.findElement(By.cssSelector("h6")).click();
+        driver.findElement(By.cssSelector(".col:nth-child(3) .card-title")).click();
+
+        File file = new File("incorrectscript.sql");
+        driver.findElement(By.name("file")).sendKeys(file.getAbsolutePath());
+        driver.findElement(By.cssSelector(".w-100")).click();
+
+        driver.findElement(By.cssSelector(".d-inline:nth-child(1) .md")).click();
+
+        String text = driver.findElement(By.cssSelector("tr:nth-child(2) > td:nth-child(2)")).getText();
+        int index = text.lastIndexOf("ОШИБКА:");
+        assertNotEquals(index, -1);
+        driver.findElement(By.linkText("Logout")).click();
     }
 
     @Test

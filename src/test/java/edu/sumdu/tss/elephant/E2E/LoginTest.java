@@ -115,15 +115,7 @@ class LoginTest {
         String expectedURL = "http://localhost:7000/login";
         assertEquals(expectedURL, actualURL);
     }
-//
-//    @Test
-//    public void Test() {
-//        StringBuilder sb = new StringBuilder(len);
-//        for (int i = 0; i < len; i++)
-//            sb.append(AB.charAt(rnd.nextInt(AB.length())));
-//        String mail = String.format("scaliariy1+%s@gmail.com", sb);
-//        System.out.println(mail);
-//    }
+
     @Test
     public void logoutTest(){
         StringBuilder sb = new StringBuilder(len);
