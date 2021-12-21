@@ -1,0 +1,2 @@
+CREATE TABLE test (id INTECER);
+INSERT INTO test VALUES (1);

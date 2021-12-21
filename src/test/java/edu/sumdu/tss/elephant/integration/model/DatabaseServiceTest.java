@@ -76,7 +76,7 @@ public class DatabaseServiceTest {
             assertEquals(1, users.size());
 
             List<Database> databases = DatabaseService.forUser(users.get(0).getUsername());
-            assertEquals(8602115,edu.sumdu.tss.elephant.model.DatabaseService.size(databases.get(0).getName()));
+            assertEquals(7938563,edu.sumdu.tss.elephant.model.DatabaseService.size(databases.get(0).getName()));
             assertEquals(1, databases.size());
         }
     }

@@ -104,6 +104,30 @@ class BackupControllerTest {
     }
 
     @Test
+    void createOneNotValidBackupTest() {
+
+        Unirest.post(Keys.get("APP.URL") + "/database/").asEmpty();
+        try(Connection connection = sql2o.open()) {
+            List<User> users = connection.createQuery("SELECT * FROM USERS WHERE LOGIN = :login")
+                    .addParameter("login", "qewr@gmail.com").executeAndFetch(User.class);
+            assertEquals(1, users.size());
+
+            List<Database> databases = DatabaseService.forUser(users.get(0).getUsername());
+            assertEquals(1, databases.size());
+            Unirest.post(Keys.get("APP.URL") + "/database/{database}/sql")
+                    .routeParam("database", databases.get(0).getName())
+                    .field("query", createInsertQuery)
+                    .asString();
+
+            Unirest.post(Keys.get("APP.URL") + "/database/{database}/point")
+                    .routeParam("database", databases.get(0).getName())
+                    .field("point", "").asString();
+
+            assertEquals(0, BackupService.list(databases.get(0).getName()).size());
+        }
+    }
+
+    @Test
     void createMaxBackupTest() {
 
         Unirest.post(Keys.get("APP.URL") + "/database").asEmpty();
