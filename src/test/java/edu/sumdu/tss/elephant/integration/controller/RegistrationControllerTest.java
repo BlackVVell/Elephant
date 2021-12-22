@@ -33,7 +33,7 @@ class RegistrationControllerTest {
     private static Sql2o sql2o;
     private static GreenMail greenMail;
     private static String FROM_EMAIL;
-    final String EMAIL = "qewr@gmail.com";
+    final String EMAIL = "qwer@gmail.com";
 
     @BeforeAll
     static void setUp() {

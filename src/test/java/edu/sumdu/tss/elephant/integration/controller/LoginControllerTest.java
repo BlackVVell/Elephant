@@ -30,7 +30,7 @@ class LoginControllerTest {
     private static Sql2o sql2o;
     private static String FROM_EMAIL;
     private static GreenMail greenMail;
-    private final static String EMAIL = "qewr@gmail.com";
+    private final static String EMAIL = "qwer@gmail.com";
 
     @BeforeAll
     static void setUp() {
