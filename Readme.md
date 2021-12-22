@@ -61,7 +61,7 @@ environment variables.
 |DEFAULT_LANG| EN or UK|
 |ENV| PRODUCTION or other . In PRODUCTION mode error page does not show stack traces |
 
-Example:
+For tests:
 
 ```
 DB.PORT=5433
@@ -70,17 +70,18 @@ DB.HOST=127.0.0.1
 DB.URL=127.0.0.1
 DB.NAME=elephant
 DB.USERNAME=postgres
-DB.PASSWORD=test
+DB.PASSWORD=root
 DB.OS_USER=WINDOWS
 
 APP.URL= http://127.0.0.1:7000
 APP.PORT=7000
 
-EMAIL.HOST=smtp.gmail.com
-EMAIL.PORT=465
-EMAIL.FROM=service-mail@gmail.com
-EMAIL.PASSWORD=my-secret-password
-EMAIL.USER=service-mail@gmail.com
+EMAIL.HOST=127.0.0.1
+EMAIL.PORT=456
+EMAIL.FROM=elephant@gmail.com
+EMAIL.PASSWORD=Qwerty123@@
+EMAIL.USER=qwer@gmail.com
+EMAIL.SSL=false
 
 DEFAULT_LANG=EN
 ENV=PRODUCTION
