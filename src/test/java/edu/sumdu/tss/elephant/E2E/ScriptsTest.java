@@ -38,13 +38,13 @@ class ScriptsTest {
     @AfterEach
     public void tearDown() {
         driver.quit();
-//        try (Connection connection = sql2o.open()) {
-//            connection.createQuery("DELETE FROM BACKUPS").executeUpdate();
-//            connection.createQuery("DELETE FROM DATABASES").executeUpdate();
-//            connection.createQuery("DELETE FROM LOGGER").executeUpdate();
-//            connection.createQuery("DELETE FROM SCRIPTS").executeUpdate();
-//            connection.createQuery("DELETE FROM USERS").executeUpdate();
-//        }
+        try (Connection connection = sql2o.open()) {
+            connection.createQuery("DELETE FROM BACKUPS").executeUpdate();
+            connection.createQuery("DELETE FROM DATABASES").executeUpdate();
+            connection.createQuery("DELETE FROM LOGGER").executeUpdate();
+            connection.createQuery("DELETE FROM SCRIPTS").executeUpdate();
+            connection.createQuery("DELETE FROM USERS").executeUpdate();
+        }
     }
 
 
