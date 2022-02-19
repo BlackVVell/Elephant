@@ -46,6 +46,25 @@ public class BackupController extends AbstractController {
         context.redirect(BASIC_PAGE.replace("{database}", dbName));
     }
 
+    public static void update(Context context) {
+        String dbName = currentDB(context).getName();
+        var currentUser = currentUser(context);
+        int currentBackupCount = BackupService.list(dbName).size();
+
+        String point = context.formParam("point");
+        if (point == null) {
+            point = context.pathParam("point");
+        }
+        if (point==null || point.isBlank()){
+            ViewHelper.softError("Point name can't be empty", context);
+            return;
+        }
+
+        BackupService.perform(currentUser.getUsername(), dbName, point);
+        context.sessionAttribute(Keys.INFO_KEY, "Backup update successfully");
+        context.redirect(BASIC_PAGE.replace("{database}", dbName));
+    }
+
     public static void delete(Context context) {
         Backup point = setupPoint(context);
         BackupService.delete(currentUser(context).getUsername(), point.getDatabase(), point.getPoint());
@@ -75,5 +94,6 @@ public class BackupController extends AbstractController {
         app.post(BASIC_PAGE + "{point}/create", BackupController::create, UserRole.AUTHED);
         app.post(BASIC_PAGE + "{point}/reset", BackupController::restore, UserRole.AUTHED);
         app.post(BASIC_PAGE + "{point}/delete", BackupController::delete, UserRole.AUTHED);
+        app.post(BASIC_PAGE + "{point}/update", BackupController::update, UserRole.AUTHED);
     }
 }
