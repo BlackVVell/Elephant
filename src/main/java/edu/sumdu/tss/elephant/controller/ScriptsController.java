@@ -1,12 +1,14 @@
 package edu.sumdu.tss.elephant.controller;
 
 import edu.sumdu.tss.elephant.helper.DBPool;
+import edu.sumdu.tss.elephant.helper.Keys;
 import edu.sumdu.tss.elephant.helper.Pair;
 import edu.sumdu.tss.elephant.helper.ViewHelper;
 import edu.sumdu.tss.elephant.helper.exception.AccessRestrictedException;
 import edu.sumdu.tss.elephant.helper.exception.HttpError500;
 import edu.sumdu.tss.elephant.helper.exception.NotFoundException;
 import edu.sumdu.tss.elephant.helper.sql.ScriptReader;
+import edu.sumdu.tss.elephant.helper.utils.MessageBundle;
 import edu.sumdu.tss.elephant.helper.utils.StringUtils;
 import edu.sumdu.tss.elephant.model.Script;
 import edu.sumdu.tss.elephant.model.ScriptService;
@@ -40,13 +42,20 @@ public class ScriptsController extends AbstractController {
 
         var file = context.uploadedFile("file");
         var description = context.formParamAsClass("description",String.class).getOrDefault("");
+
+        if (file == null || file.getFilename().equals("")){
+            MessageBundle mb = currentMessages(context);
+            context.sessionAttribute(Keys.ERROR_KEY, mb.get("database.script.no_file_selected"));
+            context.redirect(BASIC_PAGE.replace("{database}", database.getName()));
+            return;
+        }
+
         String path = UserService.userStoragePath(currentUser.getUsername()) +
                 File.separator + "scripts" +
                 File.separator + database.getName() +
                 File.separator + StringUtils.randomAlphaString(20);
         var destinationFile = new File(path);
         try {
-            assert file != null;
             FileUtils.forceMkdirParent(destinationFile);
             FileUtils.copyInputStreamToFile(file.getContent(), destinationFile);
         } catch (IOException ex) {

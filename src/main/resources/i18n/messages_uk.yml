@@ -79,6 +79,7 @@ database:
     title: Скрипти
     description: Заповніть базу вашими або спільними скриптами
     empty: В даний час у вас немає жодного сценарію
+    no_file_selected: Файл не обрано.
     form:
       title: Нові скрипти
       upload_button: Завантажити
