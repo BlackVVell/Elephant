@@ -12,9 +12,16 @@
         <div class="col">
             <div class="form-group">
                 <label for="db-password">Password</label>
-                <input type="text" class="form-control" id="db-password" name="db-password"
-                       aria-describedby="db-password-help"
-                       value="$currentUser.dbPassword">
+                <div class="input-group mb-3" id="show_hide_password1">
+                    <input type="password" class="form-control" id="db-password" name="db-password"
+                           aria-describedby="db-password-help"
+                           value="$currentUser.dbPassword">
+                    <span class="input-group-text" id="basic-addon2"><a href="#" id="pass-show-hide1">
+                            <ion-icon name="eye" id="pass-show1" style="display: none"></ion-icon>
+                            <ion-icon name="eye-off" id="pass-hide1"></ion-icon>
+                        </a>
+                    </span>
+                </div>
                 <small id="db-password-help" class="form-text text-muted">Database password</small>
             </div>
         </div>
@@ -23,3 +30,20 @@
         <button class="btn" type="submit">Change password</button>
     </div>
 </form>
+
+<script>
+    jQuery(document).ready(function () {
+        jQuery("#pass-show-hide1").on('click', function (event) {
+            event.preventDefault();
+            if (jQuery('#show_hide_password1 input').attr("type") == "text") {
+                jQuery('#show_hide_password1 input').attr('type', 'password');
+                jQuery('#pass-show1').toggle()
+                jQuery('#pass-hide1').toggle()
+            } else if (jQuery('#show_hide_password1 input').attr("type") == "password") {
+                jQuery('#show_hide_password1 input').attr('type', 'text');
+                jQuery('#pass-show1').toggle()
+                jQuery('#pass-hide1').toggle()
+            }
+        });
+    });
+</script>
