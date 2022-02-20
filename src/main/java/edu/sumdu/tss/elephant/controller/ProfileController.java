@@ -13,7 +13,6 @@ import io.javalin.Javalin;
 import io.javalin.core.util.JavalinLogger;
 import io.javalin.http.Context;
 
-import java.util.Objects;
 
 public class ProfileController extends AbstractController {
 
@@ -46,19 +45,10 @@ public class ProfileController extends AbstractController {
             DbUserService.dbUserPasswordReset(user.getUsername(), user.getDbPassword());
             context.sessionAttribute(Keys.INFO_KEY, "DB user password was changed");
         } else {
-//            context.sessionAttribute(Keys.INFO_KEY, "DB user password is incorrect!");
             ViewHelper.softError("The password must contain at least 8 characters, of which at least 1 must " +
                     "be, 1 uppercase letter and 1 character that is neither a letter nor a number.", context);
         }
         context.redirect(BASIC_PAGE);
-        //TODO add password validation
-        /*JavalinLogger.info(user.toString());
-        user.setDbPassword(context.formParam("db-password"));
-        JavalinLogger.info(user.toString());
-        UserService.save(user);
-        DbUserService.dbUserPasswordReset(user.getUsername(), user.getDbPassword());
-        context.sessionAttribute(Keys.INFO_KEY, "DB user password was changed");
-        context.redirect(BASIC_PAGE);*/
     }
 
     public static void resetWebPassword(Context context) {
@@ -69,16 +59,10 @@ public class ProfileController extends AbstractController {
             UserService.save(user);
             context.sessionAttribute(Keys.INFO_KEY, "Web user password was changed");
         } else {
-//            context.sessionAttribute(Keys.INFO_KEY, "Web user password is incorrect!");
             ViewHelper.softError("The password must contain at least 8 characters, of which at least 1 must" +
                     " be, 1 uppercase letter and 1 character that is neither a letter nor a number.", context);
         }
         context.redirect(BASIC_PAGE);
-        //TODO add password validation
-        /*user.password(context.formParam("web-password"));
-        UserService.save(user);
-        context.sessionAttribute(Keys.INFO_KEY, "Web user password was changed");
-        context.redirect(BASIC_PAGE);*/
     }
 
     public static void resetApiPassword(Context context) {
