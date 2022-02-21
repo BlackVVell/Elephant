@@ -1,12 +1,14 @@
 package edu.sumdu.tss.elephant.controller;
 
 import edu.sumdu.tss.elephant.helper.DBPool;
+import edu.sumdu.tss.elephant.helper.Keys;
 import edu.sumdu.tss.elephant.helper.Pair;
 import edu.sumdu.tss.elephant.helper.ViewHelper;
 import edu.sumdu.tss.elephant.helper.exception.AccessRestrictedException;
 import edu.sumdu.tss.elephant.helper.exception.HttpError500;
 import edu.sumdu.tss.elephant.helper.exception.NotFoundException;
 import edu.sumdu.tss.elephant.helper.sql.ScriptReader;
+import edu.sumdu.tss.elephant.helper.utils.MessageBundle;
 import edu.sumdu.tss.elephant.helper.utils.StringUtils;
 import edu.sumdu.tss.elephant.model.Script;
 import edu.sumdu.tss.elephant.model.ScriptService;
@@ -39,6 +41,15 @@ public class ScriptsController extends AbstractController {
         }
 
         var file = context.uploadedFile("file");
+        long usedStorageSize = UserService.storageSize(currentUser.getUsername());
+        long maxStorageSize = currentUser.role().maxStorage();
+        if ((usedStorageSize + file.getSize()) >= maxStorageSize) {
+            MessageBundle mb = currentMessages(context);
+            context.sessionAttribute(Keys.ERROR_KEY, mb.get("database.script.out_of_memory"));
+            context.redirect(BASIC_PAGE.replace("{database}", database.getName()));
+            return;
+        }
+
         var description = context.formParamAsClass("description",String.class).getOrDefault("");
         String path = UserService.userStoragePath(currentUser.getUsername()) +
                 File.separator + "scripts" +
