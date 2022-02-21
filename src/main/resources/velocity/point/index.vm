@@ -19,7 +19,7 @@
                         </div>
                         <div class="card-meta">
                             <div class="card-options">
-                                <form action="/database/$database.name/point/$point.point/create" method="post"
+                                <form action="/database/$database.name/point/$point.point/update" method="post"
                                       class="d-inline">
                                     <input type="submit" value="$msg.get("controls.button.update")">
                                 </form>
