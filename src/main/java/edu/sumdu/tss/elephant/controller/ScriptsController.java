@@ -41,6 +41,15 @@ public class ScriptsController extends AbstractController {
         }
 
         var file = context.uploadedFile("file");
+        long usedStorageSize = UserService.storageSize(currentUser.getUsername());
+        long maxStorageSize = currentUser.role().maxStorage();
+        if ((usedStorageSize + file.getSize()) >= maxStorageSize) {
+            MessageBundle mb = currentMessages(context);
+            context.sessionAttribute(Keys.ERROR_KEY, mb.get("database.script.out_of_memory"));
+            context.redirect(BASIC_PAGE.replace("{database}", database.getName()));
+            return;
+        }
+
         var description = context.formParamAsClass("description",String.class).getOrDefault("");
 
         if (file == null || file.getFilename().equals("")){

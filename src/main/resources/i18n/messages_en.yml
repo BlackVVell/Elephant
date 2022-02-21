@@ -80,6 +80,7 @@ database:
     description: "Seed yor database with your or shared scripts"
     empty: "Currently you have no one script"
     no_file_selected: "File not selected."
+    out_of_memory: "Out of memory"
     form:
       title: "New scripts"
       upload_button: "Upload new script"
