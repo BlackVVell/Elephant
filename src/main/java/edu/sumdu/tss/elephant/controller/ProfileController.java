@@ -2,14 +2,17 @@ package edu.sumdu.tss.elephant.controller;
 
 import edu.sumdu.tss.elephant.helper.Keys;
 import edu.sumdu.tss.elephant.helper.UserRole;
+import edu.sumdu.tss.elephant.helper.ViewHelper;
 import edu.sumdu.tss.elephant.helper.enums.Lang;
 import edu.sumdu.tss.elephant.helper.utils.StringUtils;
 import edu.sumdu.tss.elephant.model.DbUserService;
 import edu.sumdu.tss.elephant.model.User;
 import edu.sumdu.tss.elephant.model.UserService;
+import edu.sumdu.tss.elephant.helper.utils.ValidatorHelper;
 import io.javalin.Javalin;
 import io.javalin.core.util.JavalinLogger;
 import io.javalin.http.Context;
+
 
 public class ProfileController extends AbstractController {
 
@@ -33,22 +36,32 @@ public class ProfileController extends AbstractController {
 
     public static void resetDbPassword(Context context) {
         User user = currentUser(context);
-        //TODO add password validation
-        JavalinLogger.info(user.toString());
-        user.setDbPassword(context.formParam("db-password"));
-        JavalinLogger.info(user.toString());
-        UserService.save(user);
-        DbUserService.dbUserPasswordReset(user.getUsername(), user.getDbPassword());
-        context.sessionAttribute(Keys.INFO_KEY, "DB user password was changed");
+        var password = context.formParam("db-password");
+        if (ValidatorHelper.isValidPassword(password)) {
+            JavalinLogger.info(user.toString());
+            user.setDbPassword(context.formParam("db-password"));
+            JavalinLogger.info(user.toString());
+            UserService.save(user);
+            DbUserService.dbUserPasswordReset(user.getUsername(), user.getDbPassword());
+            context.sessionAttribute(Keys.INFO_KEY, "DB user password was changed");
+        } else {
+            ViewHelper.softError("The password must contain at least 8 characters, of which at least 1 must " +
+                    "be, 1 uppercase letter and 1 character that is neither a letter nor a number.", context);
+        }
         context.redirect(BASIC_PAGE);
     }
 
     public static void resetWebPassword(Context context) {
         User user = currentUser(context);
-        //TODO add password validation
-        user.password(context.formParam("web-password"));
-        UserService.save(user);
-        context.sessionAttribute(Keys.INFO_KEY, "Web user password was changed");
+        var password = context.formParam("web-password");
+        if (ValidatorHelper.isValidPassword(password)) {
+            user.password(context.formParam("web-password"));
+            UserService.save(user);
+            context.sessionAttribute(Keys.INFO_KEY, "Web user password was changed");
+        } else {
+            ViewHelper.softError("The password must contain at least 8 characters, of which at least 1 must" +
+                    " be, 1 uppercase letter and 1 character that is neither a letter nor a number.", context);
+        }
         context.redirect(BASIC_PAGE);
     }
 
